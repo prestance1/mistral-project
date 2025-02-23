@@ -1,0 +1,19 @@
+[project]
+name = "econome"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fal-client>=0.5.9",
+    "fastapi[standard]>=0.115.8",
+    "mistralai>=1.5.0",
+    "pydantic-settings>=2.7.1",
+    "pymongo>=4.11.1",
+    "ruff>=0.9.5",
+]
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
