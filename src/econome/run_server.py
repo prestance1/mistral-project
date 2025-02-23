@@ -24,9 +24,7 @@ async def document_not_found_exception_handler(
 
 
 @app.exception_handler(ConnectionFailure)
-async def database_connection_failure_handler(
-    request: Request, exc: ConnectionFailure
-):
+async def database_connection_failure_handler(request: Request, exc: ConnectionFailure):
     logger.error("Connection error", dict(error=str(exc)))
     return JSONResponse(
         status_code=503,
@@ -35,9 +33,7 @@ async def database_connection_failure_handler(
 
 
 @app.exception_handler(OperationFailure)
-async def database_operation_handler(
-    request: Request, exc: OperationFailure
-):
+async def database_operation_handler(request: Request, exc: OperationFailure):
     logger.error("Operation error", dict(error=str(exc)))
     return JSONResponse(
         status_code=503, content={"detail": f"Database operation error: {str(exc)}"}
@@ -51,6 +47,7 @@ async def database_invalid_id_handler(request: Request, exc: InvalidId):
         status_code=503,
         content={"detail": "Invalid Id passed"},
     )
+
 
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
