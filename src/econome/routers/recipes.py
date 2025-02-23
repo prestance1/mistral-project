@@ -44,6 +44,9 @@ class Ingredients(BaseModel):
 class RecipeStep(BaseModel):
     content: str
 
+class Image(BaseModel):
+    url: str
+
 
 class Recipe(BaseModel):
     meal: str
@@ -98,7 +101,7 @@ async def generate_recipe_from_txt(ingredients: List[Ingredient]) -> Recipe:
 
 
 @router.post("/vision", response_model=Recipe, status_code=status.HTTP_200_OK)
-async def generate_recipe_from_img(image_url: str) -> Recipe:
+async def generate_recipe_from_img(img: Image) -> Recipe:
     chat_response = client.chat.parse(
         model=settings.vision_model,
         messages=[
@@ -109,7 +112,7 @@ async def generate_recipe_from_img(image_url: str) -> Recipe:
                         "type": "text",
                         "text": "What ingredients are in this image alongside their quantity?",
                     },
-                    {"type": "image_url", "image_url": image_url},
+                    {"type": "image_url", "image_url": img.url},
                 ],
             }
         ],
